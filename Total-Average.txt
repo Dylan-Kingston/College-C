@@ -1,0 +1,43 @@
+#include<stdio.h>
+main()
+{
+    int bars1;
+    int bars2;
+    int bars3;
+    int bars4;
+    int bars5;
+    int average;
+    int total;
+    
+    //total = 0;
+    
+        printf("\nEnter number of bars eaten on day 1: ");
+        scanf("%d", &bars1);
+        flushall();
+        
+        printf("\nEnter number of bars eaten on day 2: ");
+        scanf("%d", &bars2);
+        flushall();
+        
+        printf("\nEnter number of bars eaten on day 3: ");
+        scanf("%d", &bars3);
+        flushall();
+        
+        printf("\nEnter number of bars eaten on day 4: ");
+        scanf("%d", &bars4);
+        flushall();
+        
+        printf("\nEnter number of bars eaten on day 5: ");
+        scanf("%d", &bars5);
+        flushall();
+        
+    //total = total + bars1,bars2,bars3,bars4,bars5;
+    total = bars1 + bars2 + bars3 + bars4 + bars5;
+    
+    average = total / 5;
+    
+    printf("\nTotal bars eaten = %d\n\n", total );
+    printf("Average bars eaten = %d", average);
+    
+    getchar();
+}

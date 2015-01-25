@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+main()
+{
+    int i;
+    int no_els;
+    int 
+    char choice;
+    
+    printf("\n\nEnter number of elements you wish to save:\n\n");
+    scanf("%d", &no_els);
+    
+    no_bytes = no_els + sizeof(int); //Calculate the size of the block
+    
+    ptr = (int*)malloc(no_bytes); //Allocate the block
+    
+    if(ptr == NULL)
+    {
+        printf("\n\nCannot allocate memory.\n\n");
+    }else
+    {
+        for(i=0; i<no_els; i++)
+        {
+            scanf("%d", &*(ptr+i)); //Enter data into block.
+        }
+        printf("Any more numbers (Y/N)?");
+        scanf("%c", &choice);
+        
+        if(choice == 'y')
+        {
+            printf("How many elements?");
+            scanf("%d", &no_els);
+            
+            no_bytes = no_els + sizeof(int); //Calculate the new size.
+            
+            ptr = realloc(ptr, no_bytes);

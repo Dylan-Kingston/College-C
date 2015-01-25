@@ -1,0 +1,22 @@
+/*Array that read in 5 numbers
+Date 4/11/13
+Author: Dylan Kingston*/
+
+#include<stdio.h>
+main()
+{
+    int Dylan[5];
+    int index;
+    
+    printf("Please enter five numbers\n");
+    
+    for(index = 0; index < 5; index ++)
+    {
+        scanf("%d", &Dylan[index]);
+        flushall();
+    }
+    printf("\nYou entered %d, %d, %d, %d, %d.");
+    
+    getchar();
+    
+} //end main()

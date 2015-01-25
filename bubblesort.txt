@@ -1,0 +1,44 @@
+/*A small program that uses bubble sort to take a hardcoded list of descending numbers, sort them into ascending order, counting the number of swaps that take place.*/
+#include <stdio.h>
+ 
+int main()
+{
+    int array[100];
+    int n = 100;
+    int c;
+    int d;
+    int swap;
+    int swapcount = 0;
+ 
+    
+    for (c=100; c>0; c--)
+    {
+        printf("%d\n", c);
+    } //end for()
+    
+    for (c = 0 ; c < ( n - c - 1 ); c++)
+    {
+        for (d = 0 ; d < n - c - 1; d++)
+        {
+            if (array[d] > array[d+1])
+            {
+                swap       = array[d+1];
+                array[d]   = array[d+1];
+                array[d] = swap;
+                swapcount++;
+            }
+        }
+    }
+ 
+    printf("Sorted list in ascending order:\n");
+    
+    for (c = 1; c < n + 1; c++)
+    {
+        printf("%d\n", c);
+    }
+    
+    printf("\n\nSwapcount = %d\n\n", swapcount);
+    
+    flushall();
+    getchar();
+  }

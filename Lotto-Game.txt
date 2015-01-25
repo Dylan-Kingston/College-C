@@ -1,0 +1,550 @@
+/*Assignment2.c. This program mimicks the lotto game, the user is asked to enter 6 numbers between 0 and 42.
+Depending on the numbers entered, the program will print out which prize the user won. The program will also 
+be abe to sort the entered numbers into an ascending numerical order, count how many times a certain guess is
+made, and will have the option to exit at the menu.
+
+Author: Dylan Kingston
+Date:   13/3/14
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+#define SIZE 6   //A symbollic name for how many lotto numbers the user can enter.
+
+void read_in_numbers(int *);  //A function is used for each of the 6 choices in the program menu.
+void display_contents(int *);
+void sort_contents(int[]);
+void compare_numbers(int[]);
+void frequency_of_numbers(int[]);
+void exit_program(void);
+
+//Below are global variables, used in function 5 to count how many times a number is guessed by the user.
+int one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty = 0;
+int twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree = 0;
+int thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo = 0;
+
+main()
+{
+    int choice = 0;//Corresponds to the users menu choice in the switch case.
+    int exit = 0;//Allows the program to shutdown when this value is changed. (Only in case 4.)
+    int array[SIZE];
+    int *ptr_array;//Pointer notation for accessing array elements.
+    ptr_array = array;
+    int allow = 0;//This value stops the user entering cases other than 1 (enter numbers) or 6 (exit program) until they have entered their lotto numbers.
+    
+    
+    do
+    {
+        printf("-----------------------------\n");   //The following 10 lines displays a simple menu.
+        printf("----Welcome to the lotto.----\n");
+        printf("-----------------------------\n\n");
+       
+        printf("Please enter you choice from the options below:\n\n");
+       
+        printf("1. Choose your numbers.\n");
+        printf("2. Display the numbers you entered.\n");
+        printf("3. Sort the numbers you entered in an ascending fashion.\n");
+        printf("4. Compare your numbers to the winning numbers.\n");
+        printf("5. See how many times you've entered a certain number.\n");
+        printf("6. Exit the game.\n\n");
+        
+        scanf("%d", &choice);
+        
+        switch(choice)  //Depending on the option chosen, a different function is called.
+        {
+            case 1:
+            {
+                allow = 1;//Cases 2, 3, 4, and 5 can now be accessed.
+                printf("\nYou entered 1.\n\n");
+                read_in_numbers(array);//Function call
+                break;
+            }//End case 1
+            
+            case 2:
+            {
+                printf("\nYou entered 2.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must enter you lotto numbers in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    display_contents(array);//Function call
+                }
+                break;
+            }//End case 2
+            
+            case 3:
+            {
+                printf("\nYou entered 3.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must enter you lotto numbers in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    sort_contents(array);//Function call
+                }
+                break;
+            }//End case 3
+            
+            case 4:
+            {
+                printf("\nYou entered 4.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must enter you lotto numbers in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    compare_numbers(array);//Function call
+                }
+                break;
+            }//End case 4
+            
+            case 5:
+            {
+                printf("\nYou entered 5.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must enter you lotto numbers in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    frequency_of_numbers(array);//Function call
+                }
+                break;
+            }//End case 5
+            
+            case 6:
+            {
+                printf("\nYou entered 6.\n\n");
+                exit_program();//Function call
+                exit = 1;//This only changes in case 6, allows the program to be shutdown.
+                break;
+            }//End case 6
+            
+            default:
+            {
+                printf("\nYou entered an invalid number.\nPlease enter a number from 1 - 6.\n\n");
+                flushall();
+            }//End default
+        }
+    }while(exit == 0);//Stops the program shutting down unless case 6 is run.
+}//End main()
+
+void read_in_numbers(int *array1)//Choice 1
+{
+    printf("\nPlease enter your 6 numbers to start the game.\n\n");
+    
+    int index;
+    
+    for(index = 0; index < SIZE; index ++)
+    {
+        scanf("%d", &(*(array1+index)));//The users guesses.
+        
+        if(array1[index] > 42  || array1[index] < 1)
+        {
+            printf("\n\nPlease only enter numbers between 1 and 42. Try again:\n\n");//Error checking.
+            flushall();
+            scanf("%d", &(*(array1+index)));
+        }
+        
+      /*if(array1[0] == array1[1] || array1[0] == array1[2] || array1[0] == array1[3] || array1[0] == array1[4] || array1[0] == array1[5] 
+                || array1[1] == array1[2] || array1[1] == array1[3] || array1[1] == array1[4] || array1[1] == array1[5] 
+                || array1[2] == array1[3] || array1[2] == array1[4] || array1[2] == array1[5]
+                || array1[3] == array1[4] || array1[3] == array1[5]
+                || array1[4] == array1[5])
+                {
+                    printf("\n\nPlease enter a different number for each guess. Try again:\n\n");
+                    flushall();
+                    scanf("%d", &(*(array1+index))); 
+                }*/
+    }
+    
+    printf("\n\n");
+    printf("Hit enter to return to the menu.\n\n");
+    
+    flushall();
+    getchar();
+}//End read_in_numbers()
+
+void display_contents(int *array1)//Choice 2
+{
+    printf("These are your numbers: ");
+    
+    int index;
+    for(index = 0; index < SIZE; index ++)
+    {
+        printf(" %d ", (*(array1+index)));//Prints the users guesses in the order they were entered.
+    }
+    
+    printf("\n\n");
+    printf("Hit enter to return to the menu.\n\n");
+    
+    flushall();
+    getchar();
+}//End display_contents()
+
+void sort_contents(int array1[])//Choice 3
+{
+    int n = SIZE;
+    int c;
+    int d;
+    int swap;
+    
+    printf("These are your numbers: ");
+    
+    int index;
+    
+    for(index = 0; index < SIZE; index ++)
+    {
+        printf(" %d ", array1[index]);//prints unsorted numbers for comparrison.
+        flushall();
+    }
+    printf("\n\n");
+ 
+    for(c = 0 ; c < ( n - 1 ); c++)//This is a basic bubble sort algorithm.
+    {
+        for (d = 0 ; d < n - c - 1; d++)
+        {
+            if (array1[d] > array1[d+1])
+            {
+                swap        = array1[d];
+                array1[d]   = array1[d+1];
+                array1[d+1] = swap;
+            }
+        }
+    }
+ 
+    printf("Numbers ascending order:");
+    
+    for (c = 0; c < n; c++)
+    {
+        printf(" %d ", array1[c]);//Prints out the sorted numbers.
+    }
+    
+    printf("\n\n");
+    printf("Hit enter to return to the menu.\n\n");
+    
+    flushall();
+    getchar();
+}//End sort_contents()
+
+void compare_numbers(int array1[])//Choice 4
+{
+    int array2[SIZE] = {1, 3, 5, 7, 9, 11};//The winning numbers.
+    int right = 0;//Will increment based on how many right answers are entered.
+    int bonus = 0;//Value will change to 1 if the bonus number is enetered.
+    
+    if(array1[0] == array2[0] || array1[0] == array2[1] || array1[0] == array2[2] //The following compares the two arrays (entered numbers and winning numbers)
+    || array1[0] == array2[3] || array1[0] == array2[4] || array1[0] == array2[5])//and increments a value to count the numbers that win.
+    {
+        right++;
+    }
+    if(array1[1] == array2[0] || array1[1] == array2[1] || array1[1] == array2[2] 
+    || array1[1] == array2[3] || array1[1] == array2[4] || array1[1] == array2[5])
+    {
+        right++;
+    }
+    if(array1[2] == array2[0] || array1[2] == array2[1] || array1[2] == array2[2] 
+    || array1[2] == array2[3] || array1[2] == array2[4] || array1[2] == array2[5])
+    {
+        right++;
+    }
+    if(array1[3] == array2[0] || array1[3] == array2[1] || array1[3] == array2[2] 
+    || array1[3] == array2[3] || array1[3] == array2[4] || array1[3] == array2[5])
+    {
+        right++;
+    }
+    if(array1[4] == array2[0] || array1[4] == array2[4] || array1[4] == array2[2] 
+    || array1[4] == array2[3] || array1[4] == array2[4] || array1[4] == array2[5])
+    {
+        right++;
+    }
+    if(array1[5] == array2[0] || array1[5] == array2[1] || array1[5] == array2[2]
+    || array1[5] == array2[3] || array1[5] == array2[4] || array1[5] == array2[5])
+    {
+        right++;
+    }
+    if(array1[0] == 42 || array1[1] == 42 || array1[2] == 42
+    || array1[3] == 42 || array1[4] == 42 || array1[5] == 42)
+    {
+        bonus = 1;
+    }
+    
+    printf("\nYou got %d numbers correct!\n", right);
+    
+    if(bonus == 1)//Checks for the bonus number.
+    {
+        printf("\nYou got the bonus!.\n");
+    }
+    
+    if(right == 3 && bonus == 1)
+    {
+        printf("\n\nYou've won a cinema ticket!\n\n");
+    }
+    
+    if(right == 4 && bonus == 1)
+    {
+        printf("\n\nYou've won a weekend away!\n\n");
+    }
+    
+    if(right == 5 && bonus == 1)
+    {
+        printf("\n\nYou've won a new car!\n\n");
+    }
+    
+    if(right == 4 && bonus == 0)
+    {
+        printf("\n\nYou've won a night out!\n\n");
+    }
+    
+    if(right == 5 && bonus == 0)
+    {
+        printf("\n\nYou've won a holiday!\n\n");
+    }
+    
+    if(right == 6 && bonus == 0)
+    {
+        printf("\n\nJACKPOT!!!\n\n");
+    }
+    
+    if(right == 0 && bonus == 0)
+    {
+        printf("\n\nSorry, you did not guess enough correct numbers.\n\n");
+    }
+    
+    if(right == 1 && bonus == 0)
+    {
+        printf("\n\nSorry, you did not guess enough correct numbers.\n\n");
+    }
+    
+    if(right == 2 && bonus == 0)
+    {
+        printf("\n\nSorry, you did not guess enough correct numbers.\n\n");
+    }
+    
+    if(right == 3 && bonus == 0)
+    {
+        printf("\n\nSorry, you did not guess enough correct numbers.\n\n");
+    }
+    
+    printf("Hit enter to return to the menu.\n\n");
+    
+    flushall();
+    getchar();
+}//End compare_numbers()
+
+void frequency_of_numbers(int array1[])//Choice 5
+{
+    //All of the following compares the array elements to all possible enterable numbers, and increments them by one if they're entered.
+    
+    if(array1[0] == 1 || array1[1] == 1 || array1[2] == 1 || array1[3] == 1 || array1[4] == 1 || array1[5] == 1)
+    {
+        one++;
+    }
+    if(array1[0] == 2 || array1[1] == 2 || array1[2] == 2 || array1[3] == 2 || array1[4] == 2 || array1[5] == 2)
+    {
+        two++;
+    }
+    if(array1[0] == 3 || array1[1] == 3 || array1[2] == 3 || array1[3] == 3 || array1[4] == 3 || array1[5] == 3)
+    {
+        three++;
+    }
+    if(array1[0] == 4 || array1[1] == 4 || array1[2] == 4 || array1[3] == 4 || array1[4] == 4 || array1[5] == 4)
+    {
+        four++;
+    }
+    if(array1[0] == 5 || array1[1] == 5 || array1[2] == 5 || array1[3] == 5 || array1[4] == 5 || array1[5] == 5)
+    {
+        five++;
+    }
+    if(array1[0] == 6 || array1[1] == 6 || array1[2] == 6 || array1[3] == 6 || array1[4] == 6 || array1[5] == 6)
+    {
+        six++;
+    }
+    if(array1[0] == 7 || array1[1] == 7 || array1[2] == 7 || array1[3] == 7 || array1[4] == 7 || array1[5] == 7)
+    {
+        seven++;
+    }
+    if(array1[0] == 8 || array1[1] == 8 || array1[2] == 8 || array1[3] == 8 || array1[4] == 8 || array1[5] == 8)
+    {
+        eight++;
+    }
+    if(array1[0] == 9 || array1[1] == 9 || array1[2] == 9 || array1[3] == 9 || array1[4] == 9 || array1[5] == 9)
+    {
+        nine++;
+    }
+    if(array1[0] == 10 || array1[1] == 10 || array1[2] == 10 || array1[3] == 10 || array1[4] == 10 || array1[5] == 10)
+    {
+        ten++;
+    }
+    if(array1[0] == 11 || array1[1] == 11 || array1[2] == 11 || array1[3] == 11 || array1[4] == 11 || array1[5] == 11)
+    {
+        eleven++;
+    }
+    if(array1[0] == 12 || array1[1] == 12 || array1[2] == 12 || array1[3] == 12 || array1[4] == 12 || array1[5] == 12)
+    {
+        twelve++;
+    }
+    if(array1[0] == 13 || array1[1] == 13 || array1[2] == 13 || array1[3] == 13 || array1[4] == 13 || array1[5] == 13)
+    {
+        thirteen++;
+    }
+    if(array1[0] == 14 || array1[1] == 14 || array1[2] == 14 || array1[3] == 14 || array1[4] == 14 || array1[5] == 14)
+    {
+        fourteen++;
+    }
+    if(array1[0] == 15 || array1[1] == 15 || array1[2] == 15 || array1[3] == 15 || array1[4] == 15 || array1[5] == 15)
+    {
+        fifteen++;
+    }
+    if(array1[0] == 16 || array1[1] == 16 || array1[2] == 16 || array1[3] == 16 || array1[4] == 16 || array1[5] == 16)
+    {
+        sixteen++;
+    }
+    if(array1[0] == 17 || array1[1] == 17 || array1[2] == 17 || array1[3] == 17 || array1[4] == 17 || array1[5] == 17)
+    {
+        seventeen++;
+    }
+    if(array1[0] == 18 || array1[1] == 18 || array1[2] == 18 || array1[3] == 18 || array1[4] == 18 || array1[5] == 18)
+    {
+        eighteen++;
+    }
+    if(array1[0] == 19 || array1[1] == 19 || array1[2] == 19 || array1[3] == 19 || array1[4] == 19 || array1[5] == 19)
+    {
+        nineteen++;
+    }
+    if(array1[0] == 20 || array1[1] == 20 || array1[2] == 20 || array1[3] == 20 || array1[4] == 20 || array1[5] == 20)
+    {
+        twenty++;
+    }
+    if(array1[0] == 21 || array1[1] == 21 || array1[2] == 21 || array1[3] == 21 || array1[4] == 21 || array1[5] == 21)
+    {
+        twentyone++;
+    }
+    if(array1[0] == 22 || array1[1] == 22 || array1[2] == 22 || array1[3] == 22 || array1[4] == 22 || array1[5] == 22)
+    {
+        twentytwo++;
+    }
+    if(array1[0] == 23 || array1[1] == 23 || array1[2] == 23 || array1[3] == 23 || array1[4] == 23 || array1[5] == 23)
+    {
+        twentythree++;
+    }
+    if(array1[0] == 24 || array1[1] == 24 || array1[2] == 24 || array1[3] == 24 || array1[4] == 24 || array1[5] == 24)
+    {
+        twentyfour++;
+    }
+    if(array1[0] == 25 || array1[1] == 25 || array1[2] == 25 || array1[3] == 25 || array1[4] == 25 || array1[5] == 25)
+    {
+        twentyfive++;
+    }
+    if(array1[0] == 26 || array1[1] == 26 || array1[2] == 26 || array1[3] == 26 || array1[4] == 26 || array1[5] == 26)
+    {
+        twentysix++;
+    }
+    if(array1[0] == 27 || array1[1] == 27 || array1[2] == 27 || array1[3] == 27 || array1[4] == 27 || array1[5] == 27)
+    {
+        twentyseven++;
+    }
+    if(array1[0] == 28 || array1[1] == 28 || array1[2] == 28 || array1[3] == 28 || array1[4] == 28 || array1[5] == 28)
+    {
+        twentyeight++;
+    }
+    if(array1[0] == 29 || array1[1] == 29 || array1[2] == 29 || array1[3] == 29 || array1[4] == 29 || array1[5] == 29)
+    {
+        twentynine++;
+    }
+    if(array1[0] == 30 || array1[1] == 30 || array1[2] == 30 || array1[3] == 30 || array1[4] == 30 || array1[5] == 30)
+    {
+        thirty++;
+    }
+    if(array1[0] == 31 || array1[1] == 31 || array1[2] == 31 || array1[3] == 31 || array1[4] == 31 || array1[5] == 31)
+    {
+        thirtyone++;
+    }
+    if(array1[0] == 32 || array1[1] == 32 || array1[2] == 32 || array1[3] == 32 || array1[4] == 32 || array1[5] == 32)
+    {
+        thirtytwo++;
+    }
+    if(array1[0] == 33 || array1[1] == 33 || array1[2] == 33 || array1[3] == 33 || array1[4] == 33 || array1[5] == 33)
+    {
+        thirtythree++;
+    }
+    if(array1[0] == 34 || array1[1] == 34 || array1[2] == 34 || array1[3] == 34 || array1[4] == 34 || array1[5] == 34)
+    {
+        thirtyfour++;
+    }
+    if(array1[0] == 35 || array1[1] == 35 || array1[2] == 35 || array1[3] == 35 || array1[4] == 35 || array1[5] == 35)
+    {
+        thirtyfive++;
+    }
+    if(array1[0] == 36 || array1[1] == 36 || array1[2] == 36 || array1[3] == 36 || array1[4] == 36 || array1[5] == 36)
+    {
+        thirtysix++;
+    }
+    if(array1[0] == 37 || array1[1] == 37 || array1[2] == 37 || array1[3] == 37 || array1[4] == 37 || array1[5] == 37)
+    {
+        thirtyseven++;
+    }
+    if(array1[0] == 38 || array1[1] == 38 || array1[2] == 38 || array1[3] == 38 || array1[4] == 38 || array1[5] == 38)
+    {
+        thirtyeight++;
+    }
+    if(array1[0] == 39 || array1[1] == 39 || array1[2] == 39 || array1[3] == 39 || array1[4] == 39 || array1[5] == 39)
+    {
+        thirtynine++;
+    }
+    if(array1[0] == 40 || array1[1] == 40 || array1[2] == 40 || array1[3] == 40 || array1[4] == 40 || array1[5] == 40)
+    {
+        fourty++;
+    }
+    if(array1[0] == 41 || array1[1] == 41 || array1[2] == 41 || array1[3] == 41 || array1[4] == 41 || array1[5] == 41)
+    {
+        fourtyone++;
+    }
+    if(array1[0] == 42 || array1[1] == 42 || array1[2] == 42 || array1[3] == 42 || array1[4] == 42 || array1[5] == 42)
+    {
+        fourtytwo++;
+    }
+    
+    printf("Number 1  has been selected %d times. Number 22 has been selected %d times.\n", one, twentytwo);  //Shows how many times a number has been selected.
+    printf("Number 2  has been selected %d times. Number 23 has been selected %d times.\n", two, twentythree);
+    printf("Number 3  has been selected %d times. Number 24 has been selected %d times.\n", three, twentyfour);
+    printf("Number 4  has been selected %d times. Number 25 has been selected %d times.\n", four, twentyfive);
+    printf("Number 5  has been selected %d times. Number 26 has been selected %d times.\n", five, twentysix);
+    printf("Number 6  has been selected %d times. Number 27 has been selected %d times.\n", six, twentyseven);
+    printf("Number 7  has been selected %d times. Number 28 has been selected %d times.\n", seven, twentyeight);
+    printf("Number 8  has been selected %d times. Number 29 has been selected %d times.\n", eight, twentynine);
+    printf("Number 9  has been selected %d times. Number 30 has been selected %d times.\n", nine, thirty);
+    printf("Number 10 has been selected %d times. Number 31 has been selected %d times.\n", ten, thirtyone);
+    printf("Number 11 has been selected %d times. Number 32 has been selected %d times.\n", eleven, thirtytwo);
+    printf("Number 12 has been selected %d times. Number 33 has been selected %d times.\n", twelve, thirtythree);
+    printf("Number 13 has been selected %d times. Number 34 has been selected %d times.\n", thirteen, thirtyfour);
+    printf("Number 14 has been selected %d times. Number 35 has been selected %d times.\n", fourteen, thirtyfive);
+    printf("Number 15 has been selected %d times. Number 36 has been selected %d times.\n", fifteen, thirtysix);
+    printf("Number 16 has been selected %d times. Number 37 has been selected %d times.\n", sixteen, thirtyseven);
+    printf("Number 17 has been selected %d times. Number 38 has been selected %d times.\n", seventeen, thirtyeight);
+    printf("Number 18 has been selected %d times. Number 39 has been selected %d times.\n", eighteen, thirtynine);
+    printf("Number 19 has been selected %d times. Number 40 has been selected %d times.\n", nineteen, fourty);
+    printf("Number 20 has been selected %d times. Number 41 has been selected %d times.\n", twenty, fourtyone);
+    printf("Number 21 has been selected %d times. Number 42 has been selected %d times.\n", twentyone, fourtytwo);
+    
+    printf("\nHit enter to return to the menu.\n");
+    
+    flushall();
+    getchar();
+}//End frequency_of_numbers()
+
+void exit_program()//Choice 6
+{
+    printf("Thanks for playing, hit enter again to end the program. Good bye!\n");
+    flushall();
+    getchar();
+}//End exit_program()

@@ -1,0 +1,375 @@
+/*Algorithms assignment, this program tests the improved bubble sort programs in 5 seperate functions.
+
+Author: Dylan Kingston
+Date: 19/03/2014*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void improvedbubblesort1 (void);  //Each function has a different n value (800, 1600, 2400, 3200, 4000) for improved bubble sort.
+void improvedbubblesort2 (void);
+void improvedbubblesort3 (void);
+void improvedbubblesort4 (void);
+void improvedbubblesort5 (void);
+
+main()
+{
+    int choice = 0;//User chooses the algorithm
+    int exit = 0;//Loops the program or ends it
+    
+    do
+    {        
+        printf("\nEnter 1-5 to test the improved bubble sort.");//A simple menu
+        printf("\n1 for 800. 2 for 1600, 3 for 2400, 4 for 3200, 5 for 4000.");
+        printf("\nEnter 6 to exit the program.\n\n");
+        scanf("%d", &choice);
+        flushall();
+        
+        if(choice == 1)//1 - 5 are improved bubble sorts
+        {
+            printf("\nImproved bubble sort.\n\n");
+            improvedbubblesort1();
+        }//End if()
+        
+        if(choice == 2)
+        {
+            printf("\nImproved bubble sort.\n\n");
+            improvedbubblesort2();
+        }//End if()
+        
+        if(choice == 3)
+        {
+            printf("\nImproved bubble sort.\n\n");
+            improvedbubblesort3();
+        }//End if()
+        
+        if(choice == 4)
+        {
+            printf("\nImproved bubble sort.\n\n");
+            improvedbubblesort4();
+        }//End if()
+        
+        if(choice == 5)
+        {
+            printf("\nImproved bubble sort.\n\n");
+            improvedbubblesort5();
+        }//End if()
+        
+        if(choice < 1 || choice > 6)
+        {
+            printf("\n\nInvalid number entered.\n\n");
+        }//End if()
+        
+        if(choice == 6)//Exits the program
+        {
+            exit = 1;
+            printf("\n\nExiting the program. Hit enter.\n\n");
+            getchar();
+        }//End if()
+    }while(exit == 0);//Loops the menu.
+}//End main()
+
+void improvedbubblesort1 (void)
+{
+    int array1[800];
+    int n = 800;
+    int temp = 800;
+    int c;
+    int d;
+    int swap;
+    int swapped = 0;
+    int index;
+    int swapcount = 0;
+    int comparrisonscount = 0;
+    
+    printf("Numbers in descending fashion: ");
+    
+    for(int i=0; i<800; i++)
+    {
+        array1[i]=temp;
+        array1[i] = rand()%(2*n)+1;
+        temp--;
+    }
+    
+    for(index = 0; index < n; index ++)
+    {
+        printf("%d,  ", array1[index]);//prints unsorted numbers for comparrison.
+        flushall();
+    }
+    printf("\n\n");
+ 
+    for(c = 0 ; c < ( n - 1 ); c++)//This is a basic bubble sort algorithm.
+    {
+        swapped = 1;
+        for (d = 0 ; d < n - c - 1; d++)
+        {
+            if (array1[d] > array1[d+1])
+            {
+                swapped = 0;
+                swap        = array1[d];
+                array1[d]   = array1[d+1];
+                array1[d+1] = swap;
+                swapcount++;
+            }
+            comparrisonscount++;
+        }
+        if(swapped == 1)
+        {
+            break;
+        }
+    }
+    
+    printf("Numbers ascending order:");
+    
+    for (c = 0; c < n; c++)
+    {
+        printf(" %d ", array1[c]);//Prints out the sorted numbers.
+    }
+    
+    printf("\n\nSwapcount = %d.\n\n", swapcount);
+    printf("\n\nComparrisonscount = %d.\n\n", comparrisonscount);
+}//End improvedbubblesort1()
+
+void improvedbubblesort2 (void)
+{
+    int array1[1600];
+    int n = 1600;
+    int temp = 1600;
+    int c;
+    int d;
+    int swap;
+    int swapped = 0;
+    int index;
+    int swapcount = 0;
+    int comparrisonscount = 0;
+    
+    printf("Numbers in descending fashion: ");
+    
+    for(int i=0; i<1600; i++)
+    {
+        array1[i]=temp;
+        array1[i] = rand()%(2*n)+1;
+        temp--;
+    }
+    
+    for(index = 0; index < n; index ++)
+    {
+        printf("%d,  ", array1[index]);//prints unsorted numbers for comparrison.
+        flushall();
+    }
+    printf("\n\n");
+ 
+    for(c = 0 ; c < ( n - 1 ); c++)//This is a basic bubble sort algorithm.
+    {
+        swapped = 1;
+        for (d = 0 ; d < n - c - 1; d++)
+        {
+            if (array1[d] > array1[d+1])
+            {
+                swapped = 0;
+                swap        = array1[d];
+                array1[d]   = array1[d+1];
+                array1[d+1] = swap;
+                swapcount++;
+            }
+            comparrisonscount++;
+        }
+        if(swapped == 1)
+        {
+            break;
+        }
+    }
+    
+    printf("Numbers ascending order:");
+    
+    for (c = 0; c < n; c++)
+    {
+        printf(" %d ", array1[c]);//Prints out the sorted numbers.
+    }
+    
+    printf("\n\nSwapcount = %d.\n\n", swapcount);
+    printf("\n\nComparrisonscount = %d.\n\n", comparrisonscount);
+}//End improvedbubblesort2()
+
+void improvedbubblesort3 (void)
+{
+    int array1[2400];
+    int n = 2400;
+    int temp = 2400;
+    int c;
+    int d;
+    int swap;
+    int swapped = 0;
+    int index;
+    int swapcount = 0;
+    int comparrisonscount = 0;
+    
+    printf("Numbers in descending fashion: ");
+    
+    for(int i=0; i<2400; i++)
+    {
+        array1[i]=temp;
+        array1[i] = rand()%(2*n)+1;
+        temp--;
+    }
+    
+    for(index = 0; index < n; index ++)
+    {
+        printf("%d,  ", array1[index]);//prints unsorted numbers for comparrison.
+        flushall();
+    }
+    printf("\n\n");
+ 
+    for(c = 0 ; c < ( n - 1 ); c++)//This is a basic bubble sort algorithm.
+    {
+        swapped = 1;
+        for (d = 0 ; d < n - c - 1; d++)
+        {
+            if (array1[d] > array1[d+1])
+            {
+                swapped = 0;
+                swap        = array1[d];
+                array1[d]   = array1[d+1];
+                array1[d+1] = swap;
+                swapcount++;
+            }
+            comparrisonscount++;
+        }
+        if(swapped == 1)
+        {
+            break;
+        }
+    }
+    
+    printf("Numbers ascending order:");
+    
+    for (c = 0; c < n; c++)
+    {
+        printf(" %d ", array1[c]);//Prints out the sorted numbers.
+    }
+    
+    printf("\n\nSwapcount = %d.\n\n", swapcount);
+    printf("\n\nComparrisonscount = %d.\n\n", comparrisonscount);
+}//End improvedbubblesort3()
+
+void improvedbubblesort4 (void)
+{
+    int array1[3200];
+    int n = 3200;
+    int temp = 3200;
+    int c;
+    int d;
+    int swap;
+    int swapped = 0;
+    int index;
+    int swapcount = 0;
+    int comparrisonscount = 0;
+    
+    printf("Numbers in descending fashion: ");
+    
+    for(int i=0; i<3200; i++)
+    {
+        array1[i]=temp;
+        array1[i] = rand()%(2*n)+1;
+        temp--;
+    }
+    
+    for(index = 0; index < n; index ++)
+    {
+        printf("%d,  ", array1[index]);//prints unsorted numbers for comparrison.
+        flushall();
+    }
+    printf("\n\n");
+ 
+    for(c = 0 ; c < ( n - 1 ); c++)//This is a basic bubble sort algorithm.
+    {
+        swapped = 1;
+        for (d = 0 ; d < n - c - 1; d++)
+        {
+            if (array1[d] > array1[d+1])
+            {
+                swapped = 0;
+                swap        = array1[d];
+                array1[d]   = array1[d+1];
+                array1[d+1] = swap;
+                swapcount++;
+            }
+            comparrisonscount++;
+        }
+        if(swapped == 1)
+        {
+            break;
+        }
+    }
+    
+    printf("Numbers ascending order:");
+    
+    for (c = 0; c < n; c++)
+    {
+        printf(" %d ", array1[c]);//Prints out the sorted numbers.
+    }
+    
+    printf("\n\nSwapcount = %d.\n\n", swapcount);
+    printf("\n\nComparrisonscount = %d.\n\n", comparrisonscount);
+}//End improvedbubblesort4()
+
+void improvedbubblesort5 (void)
+{
+    int array1[4000];
+    int n = 4000;
+    int temp = 4000;
+    int c;
+    int d;
+    int swap;
+    int swapped = 0;
+    int index;
+    int swapcount = 0;
+    int comparrisonscount = 0;
+    
+    printf("Numbers in descending fashion: ");
+    
+    for(int i=0; i<4000; i++)
+    {
+        array1[i]=temp;
+        array1[i] = rand()%(2*n)+1;
+        temp--;
+    }
+    
+    for(index = 0; index < n; index ++)
+    {
+        printf("%d,  ", array1[index]);//prints unsorted numbers for comparrison.
+        flushall();
+    }
+    printf("\n\n");
+ 
+    for(c = 0 ; c < ( n - 1 ); c++)//This is a basic bubble sort algorithm.
+    {
+        swapped = 1;
+        for (d = 0 ; d < n - c - 1; d++)
+        {
+            if (array1[d] > array1[d+1])
+            {
+                swapped = 0;
+                swap        = array1[d];
+                array1[d]   = array1[d+1];
+                array1[d+1] = swap;
+                swapcount++;
+            }
+            comparrisonscount++;
+        }
+        if(swapped == 1)
+        {
+            break;
+        }
+    }
+    
+    printf("Numbers ascending order:");
+    
+    for (c = 0; c < n; c++)
+    {
+        printf(" %d ", array1[c]);//Prints out the sorted numbers.
+    }
+    
+    printf("\n\nSwapcount = %d.\n\n", swapcount);
+    printf("\n\nComparrisonscount = %d.\n\n", comparrisonscount);
+}//End improvedbubblesort5()

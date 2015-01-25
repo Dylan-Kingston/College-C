@@ -1,0 +1,275 @@
+/*This is my Persistent Data assignment.
+Author: Dylan Kingston.
+Date: 20/4/2014*/
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>  //Needed for strstr function.
+
+void convert();  //A function is used for each of the 6 choices in the program menu.
+void show_table();
+void new_result();
+void highest_number();
+void display_match();
+void exit_program();
+
+struct teams
+{
+    char team_1[18];
+    char team_2[18];
+    int goal_1;
+    int goal_2;
+    int points[11];
+};
+
+struct teams results;
+struct teams matches;
+
+main()
+{
+    int choice = 0;//Corresponds to the users menu choice in the first switch case.
+    int exit = 0;//Allows the program to shutdown when this value is changed. (Only in case 6.)
+    int allow = 0;//This value stops the user entering cases other than 1 or 6 until they have convetered the text file to binary.
+
+    
+    do
+    {
+        printf("-----------------------------\n");   //The following lines displays a simple menu.
+        printf("----Welcome to my program.---\n");
+        printf("-----------------------------\n\n");
+       
+        printf("Please enter you choice from the options below:\n\n");
+       
+        printf("1. Convert the file to binary.\n");
+        printf("2. Show the League table.\n");
+        printf("3. Insert a new result to the League table.\n");
+        printf("4. Display the match with the highest number of goals.\n");
+        printf("5. Display all the matches of a team.\n");
+        printf("6. Exit the program.\n\n");
+        
+        scanf("%d", &choice);
+        
+        switch(choice)  //Depending on the option chosen, a different function is called.
+        {
+            case 1:
+            {
+                allow = 1;//Cases 2, 3, 4, and 5 can now be accessed.
+                printf("\nYou entered 1.\n\n");
+                convert();//Function call
+                break;
+            }//End case 1
+            
+            case 2:
+            {
+                printf("\nYou entered 2.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must convert the file to binary in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    show_table();//Function call
+                }
+                break;
+            }//End case 2
+            
+            case 3:
+            {
+                printf("\nYou entered 3.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must convert the file to binary in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    new_result();//Function call
+                }
+                break;
+            }//End case 3
+            
+            case 4:
+            {
+                printf("\nYou entered 4.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must convert the file to binary in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    highest_number();//Function call
+                }
+                break;
+            }//End case 4
+            
+            case 5:
+            {
+                printf("\nYou entered 5.\n\n");
+                
+                if(allow == 0)
+                {
+                    printf("\nYou must convert the file to binary in case 1 before proceeding.\n\n");
+                }
+                else
+                {
+                    display_match();//Function call
+                }
+                break;
+            }//End case 5
+            
+            case 6:
+            {
+                printf("\nYou entered 6.\n\n");
+                exit_program();//Function call
+                exit = 1;//This only changes in case 6, allows the program to be shutdown.
+                break;
+            }//End case 6
+            
+            default:
+            {
+                printf("\nYou entered an invalid number.\nPlease enter a number from 1 - 6.\n\n");
+                flushall();
+            }//End default
+        }
+    }while(exit == 0);//Stops the program shutting down unless case 6 is run.
+}//End main()
+
+void convert()//Choice 1
+{
+    FILE*fpr;  //Pointers to the files.
+    FILE*fpw;
+    
+    fpr = fopen("matches.txt","r");   //Opens the text file only in reading mode, as the contents will never be changed.
+    fpw = fopen("matches.bin","w+b"); //Opens the binary file in writing mode, as it is empty and being written into.
+    
+    if(fpr == NULL)  //Checks if the text file opened successfully.
+    {
+        printf("Error in opening matches.txt.");
+    }//End if
+    else
+    {
+        printf("Text file open.\n");
+    }//End else
+    
+    if(fpw == NULL)  //Checks if the binary file opened successfully.
+    {
+        printf("Error in opening matches.bin.");
+    }//End if
+    else
+    {
+        printf("Binary file open.\n\n");
+    }//End else
+
+    while(fscanf(fpr, "%[^,] , %[^,] , %i , %i", matches.team_1, matches.team_2 , &matches.goal_1, &matches.goal_2)!=EOF) 
+    {
+        fwrite(matches.team_1,sizeof(matches.team_1),1,fpw);
+        
+        fwrite(matches.team_2,sizeof(matches.team_2),1,fpw);
+        
+        fwrite(&matches.goal_1,sizeof(matches.goal_1),1,fpw);
+        
+        fwrite(&matches.goal_2,sizeof(matches.goal_2),1,fpw);
+    }//End while
+}//End convert()
+
+void show_table()//Choice 2
+{
+    char *teams[10] = {"Porto", "Real Madrid", "Man United",
+                        "PSG", "Arsenal", "InterMilan", "Bayern Munich", //A string holding the names of the teams.
+                        "Juventes", "Barcelona", "Liverpool"};
+                        
+    printf("\n\nLEAGUE TABLE\n\n");
+    
+    FILE * filer;
+    filer = fopen("matches.bin", "r+b");  //Opens the .bin file provided, in reading mode.
+    
+    for (int i=0; i<180; i++) //Fill the array.
+	{ 
+        results.team_1;	 	
+        results.team_2;
+        results.goal_1;
+        results.goal_2;
+    }//End for
+    
+    printf("%s ",results.team_1);
+    printf("%s ",results.team_2);
+    printf("%i ",results.goal_1);
+    printf("%i ",results.goal_2);
+    
+    printf("\n\nName    No of Points    Goals Scored    Goals Conceded");  //Template for the table display.
+
+    for(int i=0; i<10; i++)
+    {
+        printf("\n%d.%s",i+1,teams[i]);  //Displays the teams names.
+    }//End for
+    
+    while(fscanf(filer, "%[^,] , %[^,] , %i , %i", results.team_1, results.team_2 , &results.goal_1, &results.goal_2)!=EOF) 
+    {
+        fread(&results,sizeof(results.points),1,filer);
+        printf("%s",results.points);                   //Displays information about the teams games.
+    }// end while
+}//End show_table()
+
+void new_result()//Choice 3
+{
+    printf("\nNo code.\n");
+}//End new_result()
+
+void highest_number()//Choice 4
+{
+    printf("\nNo code.\n");
+}//End highest_number()
+
+void display_match()//Choice 5
+{
+    FILE * filer;
+    
+    char team[20];
+    
+    printf("\nEnter a team name to display their matches:\n");
+   
+    scanf("%s",team);
+    
+    filer = fopen("matches.bin", "r+b");  //Opens the file for reading and in binary mode.
+    
+    if(filer == NULL)  //Checks if the binary file was opened successfully.
+    {
+        printf("Error in opening matches.bin.");
+    }//End if
+    else
+    {
+        printf("\nBinary file open.\n\n");
+    }//End else
+
+    for(int i=0; i<180; i++)
+    {
+        fread(&results.team_1,sizeof(results),1,filer);
+        
+        fread(&results.team_2,sizeof(results),1,filer);
+        
+        fread(&results.goal_1,sizeof(results),1,filer);  
+        
+        fread(&results.goal_2,sizeof(results),1,filer);  
+    }//End for
+    
+    for(int i=0; i<180; i++)
+    {
+        if(strstr(results.team_1,team)==0)  //Compares the team name to the file, to ensure the entered team exists.
+        {
+            printf("%s %s %i %i\n",results.team_1,results.team_2,results.goal_1,results.goal_2);
+        }//End if
+        else
+        {
+            printf("\nYou did not enter a correct team name. Please try again.\n");
+        }//End else
+    }//End for
+}//End display_match()
+
+void exit_program()//Choice 6
+{
+    printf("\nGood bye!\n");
+    flushall();
+    getchar();
+}//End exit_program()

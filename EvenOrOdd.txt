@@ -1,0 +1,39 @@
+//Program that uses a return type in a function.
+#include<stdio.h>
+
+int equation(int*); //Declare function prototype.
+
+main()
+{
+    int num1;
+    
+    printf("Enter any number:  ");
+    scanf("%d", &num1);
+    
+    equation(&num1);//Function call
+    
+    if(num1 == 0)
+    {
+        printf("\n\nThis is an odd number.");
+    }
+    else
+    {
+        printf("\n\nThis is an even number.");
+    }
+    
+    flushall();
+    getchar();
+}//End main()
+
+int equation(int *no1)//Function
+{
+    if(*no1 % 2 == 0)
+    {
+        *no1 = 1;
+    }
+    else
+    {
+        *no1 = 0;
+    }
+    return(*no1);
+}//End equation()

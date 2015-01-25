@@ -1,0 +1,103 @@
+/*Lab test 4 - Structures. This program asks the user to enter the details of two flight passengers using a function, and then displays them using a seperate function.
+Author: Dylan Kingston
+1st of May 2014*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct passenger_rec  //First passenger information
+{
+    int flightno;
+    int flight_date;
+    char surname[21];
+    char firstname[11];
+    int seat_number;
+};//End structure passenger_rec
+
+struct passenger_rec2  //Second passenger information
+{
+    int flightno2;
+    int flight_date2;
+    char surname2[21];
+    char firstname2[11];
+    int seat_number2;
+};//End structure passenger_rec2
+
+void get(struct passenger_rec*);    //Information is entered in this function.
+void display(struct passenger_rec); //Information is outputted in this function.
+void get2(struct passenger_rec2*);    
+void display2(struct passenger_rec2); 
+
+main()
+{
+    struct passenger_rec passenger;
+    struct passenger_rec *ptr;
+    struct passenger_rec2 passenger2;
+    struct passenger_rec2 *ptr2;
+    
+    ptr = &passenger;
+    ptr2 = &passenger2;
+    
+    printf("Passenger 1:\n\n");
+    get(ptr);
+    
+    printf("\nPassenger 2:\n\n");
+    get2(ptr2);
+    
+    printf("\nPassenger 1:\n\n");
+    display(passenger);
+    
+    printf("\n\nPassenger 2:\n\n");
+    display2(passenger2);
+    
+    flushall();
+    getchar();
+}
+
+void get(struct passenger_rec *s_ptr)
+{
+    printf("Enter flight number\n");
+    scanf("%d", &(s_ptr->flightno));
+    printf("Enter flight date\n");
+    scanf("%d", &(s_ptr->flight_date));
+    printf("Enter surname\n");
+    gets(s_ptr->surname);
+    printf("Enter firstname\n");
+    gets(s_ptr->firstname);
+    printf("Enter seat number\n");
+    scanf("%d", &(s_ptr->seat_number));
+}//End get()
+
+void display(struct passenger_rec pas)
+{
+    printf("\nFlight number is %d", pas.flightno);
+    printf("\nFlight date is %d", pas.flight_date);
+    printf("\nPassenger details are:\n");
+    puts(pas.surname);
+    puts(pas.firstname);
+    printf("Seat number is %d", pas.seat_number);
+}//End display()
+
+void get2(struct passenger_rec2 *s_ptr2)
+{
+    printf("Enter flight number\n");
+    scanf("%d", &(s_ptr2->flightno2));
+    printf("Enter flight date\n");
+    scanf("%d", &(s_ptr2->flight_date2));
+    printf("Enter surname\n");
+    gets(s_ptr2->surname2);
+    printf("Enter firstname\n");
+    gets(s_ptr2->firstname2);
+    printf("Enter seat number\n");
+    scanf("%d", &(s_ptr2->seat_number2));
+}//End get()
+
+void display2(struct passenger_rec2 pas2)
+{
+    printf("\nFlight number is %d", pas2.flightno2);
+    printf("\nFlight date is %d", pas2.flight_date2);
+    printf("\nPassenger details are:\n");
+    puts(pas2.surname2);
+    puts(pas2.firstname2);
+    printf("Seat number is %d", pas2.seat_number2);
+}//End display()
